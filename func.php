@@ -7,12 +7,11 @@
 function downloader(array $vv): void
 {
 	if (isset($vv["name"], $vv["url"])) {
-		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
-		var_dump(sprintf(__DIR__."/downloads/%s", $tarFile), file_exists(sprintf(__DIR__."/downloads/%s", $tarFile)));
-		die;
+		$tarFile = sprintf("%s.tar.gz", $vv["name"]);
 		if (file_exists(sprintf(__DIR__."/downloads/%s", $tarFile))) {
 			return;
 		}
+		$tarFile = escapeshellarg($tarFile);
 
 		cli_set_process_title(
 			sprintf("qd --name %s -o %s --no-daemon --max-compression", $vv["name"], $tarFile)
