@@ -43,7 +43,7 @@ function downloader(array $vv): void
 		}
 
 		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
-		$files = escapeshellarg(sprintf("%s_part_*.ts", $vv["name"]));
+		$files = sprintf("%s_part_*.ts", escapeshellarg($vv["name"]));
 		$wd = escapeshellarg(__DIR__."/downloads");
 		$cmd = escapeshellarg(sprintf(
 			"cd %s; env GZIP=-9 tar cvzf %s %s",
