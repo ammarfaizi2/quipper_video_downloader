@@ -8,7 +8,8 @@ function downloader(array $vv): void
 {
 	if (isset($vv["name"], $vv["url"])) {
 		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
-
+		var_dump(sprintf(__DIR__."/downloads/%s", $tarFile), file_exists(sprintf(__DIR__."/downloads/%s", $tarFile)));
+		die;
 		if (file_exists(sprintf(__DIR__."/downloads/%s", $tarFile))) {
 			return;
 		}
