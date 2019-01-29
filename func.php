@@ -7,8 +7,9 @@
 function downloader(array $vv): void
 {
 	if (isset($vv["name"], $vv["url"])) {
+		$pids = [];
 		foreach ($vv["url"] as $k => $v) {
-			if (!(pcntl_fork())) {
+			if (!($pid = pcntl_fork())) {
 				$i = 1;
 				$handle = fopen(sprintf(__DIR__."/downloads/%s_part_%d.ts", $vv["name"], $k), "w");
 				while (true) {
@@ -33,9 +34,23 @@ function downloader(array $vv): void
 				fclose($handle);
 				exit;
 			}
+			$pids[] = $pid;
 		}
 
 		$status = null;
-		pcntl_wait($status);
+		foreach ($pids as $pid) {
+			pcntl_waitpid($pid, $status);
+		}
+
+		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
+		$files = escapeshellarg(sprintf("%s_part_*.ts", $vv["name"]));
+		$wd = escapeshellarg(__DIR__."/downloads");
+		$cmd = escapeshellarg(sprintf(
+			"cd %s; env GZIP=-9 tar cvzf %s %s",
+			$wd,
+			$tarFile,
+			$files
+		));
+		shell_exec("bash -c {$cmd}");
 	}
 }
