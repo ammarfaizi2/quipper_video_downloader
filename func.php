@@ -4,13 +4,13 @@
  * @param array $v
  * @return void
  */
-function downloader(array $v): void
+function downloader(array $vv): void
 {
-	if (isset($v["name"], $v["url"])) {
-		foreach ($v["url"] as $k => $v) {
+	if (isset($vv["name"], $vv["url"])) {
+		foreach ($vv["url"] as $k => $v) {
 			if (!(pcntl_fork())) {
 				$i = 1;
-				$handle = fopen(sprintf(__DIR__."/downloads/%s_part_%d.ts", $v["name"], $k), "w");
+				$handle = fopen(sprintf(__DIR__."/downloads/%s_part_%d.ts", $vv["name"], $k), "w");
 				while (true) {
 					$ch = curl_init(sprintf($v, $i));
 					curl_setopt_array($ch, 
