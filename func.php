@@ -14,7 +14,7 @@ function downloader(array $vv): void
 		}
 
 		cli_set_process_title(
-			sprintf("qd --name %s --no-daemon --gzip-maximum-compression", $vv["name"])
+			sprintf("qd --name %s -o %s --no-daemon --max-compression", $vv["name"], $tarFile);
 		);
 
 		$pids = [];
