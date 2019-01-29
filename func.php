@@ -7,6 +7,12 @@
 function downloader(array $vv): void
 {
 	if (isset($vv["name"], $vv["url"])) {
+		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
+
+		if (file_exists(sprintf(__DIR__."/downloads/%s", $tarFile))) {
+			return;
+		}
+
 		$pids = [];
 		foreach ($vv["url"] as $k => $v) {
 			if (!($pid = pcntl_fork())) {
@@ -42,7 +48,6 @@ function downloader(array $vv): void
 			pcntl_waitpid($pid, $status);
 		}
 
-		$tarFile = escapeshellarg(sprintf("%s.tar.gz", $vv["name"]));
 		$files = sprintf("%s_part_*.ts", escapeshellarg($vv["name"]));
 		$wd = escapeshellarg(__DIR__."/downloads");
 		$cmd = escapeshellarg(sprintf(
