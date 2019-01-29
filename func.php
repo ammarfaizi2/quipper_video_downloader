@@ -8,13 +8,13 @@ function downloader(array $vv): void
 {
 	if (isset($vv["name"], $vv["url"])) {
 		$tarFile = sprintf("%s.tar.gz", $vv["name"]);
-		if (file_exists(sprintf(__DIR__."/downloads/%s", $tarFile))) {
+		if (file_exists($tarFile_ = sprintf(__DIR__."/downloads/%s", $tarFile))) {
 			return;
 		}
 		$tarFile = escapeshellarg($tarFile);
 
 		cli_set_process_title(
-			sprintf("qd --name %s -o %s --no-daemon --max-compression", $vv["name"], $tarFile)
+			sprintf("qd --target %s -o %s --no-daemon --max-compression", $vv["name"], $tarFile_)
 		);
 
 		$pids = [];
@@ -22,7 +22,10 @@ function downloader(array $vv): void
 		foreach ($vv["url"] as $k => $v) {
 			if (!($pid = pcntl_fork())) {
 				cli_set_process_title(
-					sprintf("qd-worker --part %d --no-delay --partial-stream %s", $c - $k, $v)
+					sprintf("qd-worker --part %d --no-delay --fix-all --clean-up --partial-stream %s", 
+						$c - $k, 
+						$v
+					)
 				);
 				$i = 1;
 				$handle = fopen(sprintf(__DIR__."/downloads/%s_part_%d.ts", $vv["name"], $k), "w");
