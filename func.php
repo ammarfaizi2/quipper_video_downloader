@@ -13,9 +13,17 @@ function downloader(array $vv): void
 			return;
 		}
 
+		cli_set_process_title(
+			sprintf("qd --name %s --no-daemon --gzip-maximum-compression", $vv["name"])
+		);
+
 		$pids = [];
+		$c = count($vv["url"]);
 		foreach ($vv["url"] as $k => $v) {
 			if (!($pid = pcntl_fork())) {
+				cli_set_process_title(
+					sprintf("qd-worker --part %d --no-delay --partial-stream %s", $c - $k, $v)
+				);
 				$i = 1;
 				$handle = fopen(sprintf(__DIR__."/downloads/%s_part_%d.ts", $vv["name"], $k), "w");
 				while (true) {
