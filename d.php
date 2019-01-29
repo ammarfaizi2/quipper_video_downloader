@@ -23,4 +23,6 @@ $vv = [
 	]
 ];
 
-downloader($v);
+foreach ($vv as &$v) {
+	downloader($v);
+}
