@@ -26,6 +26,18 @@ $vv = [
 		"url" => [
 			"https://hlsrecruit-a.akamaihd.net/3930705532001/5969556430001/3930705532001_5969556430001_s-%d.ts?pubId=3930705532001&videoId=5342729477001"
 		]
+	],
+	[
+		"name" => "dinamika",
+		"url" => [
+			"https://hlsrecruit-a.akamaihd.net/3930705532001/5969564399001/3930705532001_5969564399001_s-%d.ts?pubId=3930705532001&videoId=5324951637001"
+		]
+	],
+	[
+		"name" => "fisika_inti_dan_modern",
+		"url" => [
+			"https://hlsrecruit-a.akamaihd.net/3930705532001/5342683614001/3930705532001_5342683614001_rendition5-%05d.ts?pubId=3930705532001&videoId=5324978272001"
+		]
 	]
 ];
 

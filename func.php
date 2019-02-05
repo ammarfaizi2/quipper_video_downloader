@@ -67,6 +67,13 @@ function downloader(array $vv): void
 			$tarFile,
 			$files
 		));
+		$cmd2 = escapeshellarg(sprintf(
+			"cd %s; ffmpeg -i %s_part_0.ts -acodec copy -vcodec copy %s.mp4",
+			$wd,
+			$vv["name"],
+			$vv["name"]
+		));
 		shell_exec("bash -c {$cmd}");
+		shell_exec("bash -c {$cmd2}");
 	}
 }
