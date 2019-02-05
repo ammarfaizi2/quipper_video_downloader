@@ -20,6 +20,12 @@ $vv = [
 			"https://hlsrecruit-a.akamaihd.net/3930705532001/5969732614001/3930705532001_5969732614001_s-%d.ts?pubId=3930705532001&videoId=5137906826001",
 			"https://hlsrecruit-a.akamaihd.net/3930705532001/5969731982001/3930705532001_5969731982001_s-%d.ts?pubId=3930705532001&videoId=5137922847001"
 		]
+	],
+	[
+		"name" => "persiapan_un_materi_listrik",
+		"url" => [
+			"https://hlsrecruit-a.akamaihd.net/3930705532001/5969556430001/3930705532001_5969556430001_s-%d.ts?pubId=3930705532001&videoId=5342729477001"
+		]
 	]
 ];
 
